@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vell's Crib - Exclusive Guest Offers</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Roboto:wght@400;700&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #4a5d23 0%, #5c6e2a 50%, #4a5d23 100%);
+            min-height: 100vh;
+            font-family: 'Roboto', sans-serif;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 400px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            padding: 30px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(222, 184, 135, 0.2);
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .title {
+            font-family: 'Bebas Neue', cursive;
+            font-size: 2.5em;
+            color: #deb887;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            margin-bottom: 10px;
+            letter-spacing: 2px;
+        }
+        
+        .subtitle {
+            color: #deb887;
+            font-size: 1.1em;
+            opacity: 0.9;
+            font-weight: 400;
+        }
+        
+        .palm-decoration {
+            font-size: 2em;
+            color: #deb887;
+            margin: 10px 0;
+            opacity: 0.7;
+        }
+        
+        .offers-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        
+        .offer-card {
+            background: rgba(222, 184, 135, 0.15);
+            border: 2px solid rgba(222, 184, 135, 0.3);
+            border-radius: 15px;
+            padding: 20px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .offer-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(222, 184, 135, 0.2);
+            border-color: #deb887;
+        }
+        
+        .offer-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #deb887, #f4e4bc);
+        }
+        
+        .offer-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+        
+        .business-name {
+            font-family: 'Bebas Neue', cursive;
+            font-size: 1.8em;
+            color: #deb887;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .business-name:hover {
+            color: #f4e4bc;
+            text-shadow: 0 0 10px rgba(222, 184, 135, 0.5);
+        }
+        
+        .contact-info {
+            background: rgba(244, 228, 188, 0.1);
+            border: 1px solid rgba(222, 184, 135, 0.3);
+            border-radius: 8px;
+            padding: 10px;
+            margin-top: 10px;
+        }
+        
+        .contact-info p {
+            color: #deb887;
+            font-size: 0.85em;
+            margin: 0;
+        }
+        
+        .discount {
+            background: linear-gradient(135deg, #deb887, #f4e4bc);
+            color: #4a5d23;
+            padding: 8px 15px;
+            border-radius: 25px;
+            font-weight: bold;
+            font-size: 1.1em;
+            box-shadow: 0 4px 15px rgba(222, 184, 135, 0.3);
+        }
+        
+        .business-type {
+            color: #deb887;
+            font-size: 0.95em;
+            opacity: 0.8;
+            margin-bottom: 8px;
+            font-style: italic;
+        }
+        
+        .business-description {
+            color: #f4e4bc;
+            font-size: 0.9em;
+            line-height: 1.4;
+        }
+        
+        .special-note {
+            background: rgba(222, 184, 135, 0.1);
+            border-left: 4px solid #deb887;
+            padding: 12px;
+            margin-top: 15px;
+            border-radius: 0 8px 8px 0;
+        }
+        
+        .special-note p {
+            color: #deb887;
+            font-size: 0.85em;
+            margin: 0;
+        }
+        
+        .footer {
+            text-align: center;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(222, 184, 135, 0.2);
+        }
+        
+        .footer-text {
+            color: #deb887;
+            font-size: 0.9em;
+            opacity: 0.8;
+        }
+        
+        .palm-icon {
+            display: inline-block;
+            margin: 0 10px;
+            font-size: 1.2em;
+        }
+        
+        @media (max-width: 480px) {
+            .container {
+                padding: 20px;
+                margin: 10px;
+            }
+            
+            .title {
+                font-size: 2em;
+            }
+            
+            .business-name {
+                font-size: 1.5em;
+            }
+            
+            .offer-header {
+                flex-direction: column;
+                gap: 10px;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1 class="title">EXCLUSIVE GUEST OFFERS</h1>
+            <div class="palm-decoration">🌴</div>
+            <p class="subtitle">Enjoy Exclusive Guest offers during your stay in Boho Escape | Jacuzzi & Sea View from our beloved partners</p>
+        </div>
+        
+        <div class="offers-grid">
+            <!-- SCHOOLBUS Coffee Shop -->
+            <div class="offer-card">
+                <div class="offer-header">
+                    <h2 class="business-name" onclick="window.open('https://maps.app.goo.gl/nY8YtSxEmurXqyK89', '_blank')">SCHOOLBUS</h2>
+                    <span class="discount">15% OFF</span>
+                </div>
+                <p class="business-type">☕ Coffee Shop</p>
+                <p class="business-description">Start your day with premium coffee, fresh pastries, and a cozy atmosphere. Perfect for breakfast or afternoon coffee breaks.</p>
+                <div class="contact-info">
+                    <p>📞 <strong>Contact Number:</strong> Please contact directly for phone number</p>
+                </div>
+                <div class="special-note">
+                    <p>🚚 <strong>Delivery Available!</strong> Enjoy these offers from the comfort of your accommodation. Delivery from 10 euros and more.</p>
+                </div>
+            </div>
+            
+            <!-- CACTUS Mexican Restaurant -->
+            <div class="offer-card">
+                <div class="offer-header">
+                    <h2 class="business-name" onclick="window.open('https://maps.app.goo.gl/oM5vgp6m9C7kygs1A', '_blank')">CACTUS</h2>
+                    <span class="discount">25% OFF</span>
+                </div>
+                <p class="business-type">🌮 Mexican Restaurant & Cocktails</p>
+                <p class="business-description">Authentic Mexican cuisine with vibrant flavors and expertly crafted cocktails. Experience the best of Mexican hospitality.</p>
+            </div>
+            
+            <!-- DIADROMES After Party Bar -->
+            <div class="offer-card">
+                <div class="offer-header">
+                    <h2 class="business-name" onclick="window.open('https://maps.app.goo.gl/i4B7u9zb7X4ETG896', '_blank')">DIADROMES</h2>
+                    <span class="discount">15% OFF</span>
+                </div>
+                <p class="business-type">🍸 After Party Bar</p>
+                <p class="business-description">Keep the night alive with premium drinks, great music, and an unforgettable atmosphere. The perfect spot for late-night fun.</p>
+            </div>
+            
+            <!-- GEMA Pizza & More -->
+            <div class="offer-card">
+                <div class="offer-header">
+                    <h2 class="business-name" onclick="window.open('https://maps.app.goo.gl/mHK3TBLB1taHRDo49', '_blank')">GEMA</h2>
+                    <span class="discount">15% OFF</span>
+                </div>
+                <p class="business-type">🍕 Pizza, Pasta & Burgers</p>
+                <p class="business-description">Delicious comfort food delivered to your door. From wood-fired pizzas to gourmet burgers and fresh pasta dishes.</p>
+                <div class="contact-info">
+                    <p>📞 <strong>Contact Number:</strong> +30 2229 064443</p>
+                </div>
+                <div class="special-note">
+                    <p>🚚 <strong>Delivery Available!</strong> Enjoy these offers from the comfort of your accommodation. Delivery from 15 euros and more.</p>
+                </div>
+            </div>
+            
+            <!-- EVIA BOAT Rental -->
+            <div class="offer-card">
+                <div class="offer-header">
+                    <h2 class="business-name" onclick="window.open('https://maps.app.goo.gl/kbxjC1NRw8KnRh2M6', '_blank')">EVIA BOAT</h2>
+                    <span class="discount">10% OFF</span>
+                </div>
+                <p class="business-type">⛵ Local Boat Rental</p>
+                <p class="business-description">Explore the beautiful coastline at your own pace. Professional boat rental service for unforgettable maritime adventures.</p>
+                <div class="special-note">
+                    <p>📞 <strong>Booking Required:</strong> Contact directly to arrange your boat rental experience.</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <p class="footer-text">
+                <span class="palm-icon">🌴</span>
+                Redeem your exclusive discount by showing the provided keychain for in-person visits or mention the house for delivery orders
+                <span class="palm-icon">🌴</span>
+            </p>
+        </div>
+    </div>
+</body>
+</html>
