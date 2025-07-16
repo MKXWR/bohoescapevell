@@ -5,12 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Vell's Crib - Exclusive Guest Offers</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Roboto:wght@400;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Roboto:wght@300;400;700&display=swap');
         
+        /* Prevent horizontal overflow */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+        }
+        
+        html {
+            overflow-x: hidden;
         }
         
         body {
@@ -18,191 +23,726 @@
             min-height: 100vh;
             font-family: 'Roboto', sans-serif;
             padding: 20px;
+            position: relative;
+            overflow-x: hidden;
+            -webkit-overflow-scrolling: touch;
+        }
+        
+        /* Liquid Morphing Background */
+        .liquid-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 0;
+        }
+        
+        .blob {
+            position: absolute;
+            border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%;
+            background: radial-gradient(circle at 30% 30%, rgba(222, 184, 135, 0.15), rgba(244, 228, 188, 0.05));
+            filter: blur(40px);
+            animation: morph 20s ease-in-out infinite;
+            will-change: transform;
+            transform: translateZ(0);
+            -webkit-transform: translateZ(0);
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
+        }
+        
+        .blob:nth-child(1) {
+            width: 500px;
+            height: 500px;
+            top: -100px;
+            left: -100px;
+            animation-duration: 25s;
+        }
+        
+        .blob:nth-child(2) {
+            width: 400px;
+            height: 400px;
+            bottom: -100px;
+            right: -100px;
+            animation-duration: 30s;
+            animation-delay: -10s;
+        }
+        
+        .blob:nth-child(3) {
+            width: 300px;
+            height: 300px;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            animation-duration: 35s;
+            animation-delay: -5s;
+        }
+        
+        @keyframes morph {
+            0%, 100% {
+                border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%;
+                transform: rotate(0deg) scale(1);
+            }
+            25% {
+                border-radius: 70% 30% 50% 50% / 30% 70% 40% 60%;
+                transform: rotate(90deg) scale(1.1);
+            }
+            50% {
+                border-radius: 30% 70% 40% 60% / 70% 30% 60% 40%;
+                transform: rotate(180deg) scale(0.9);
+            }
+            75% {
+                border-radius: 60% 40% 30% 70% / 50% 60% 70% 30%;
+                transform: rotate(270deg) scale(1.05);
+            }
         }
         
         .container {
-            max-width: 400px;
+            max-width: 450px;
             margin: 0 auto;
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 20px;
-            padding: 30px;
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(222, 184, 135, 0.2);
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 25px;
+            padding: 35px;
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(222, 184, 135, 0.3);
+            box-shadow: 
+                0 20px 40px rgba(0, 0, 0, 0.2),
+                inset 0 1px 1px rgba(255, 255, 255, 0.1);
+            position: relative;
+            z-index: 2;
+            animation: container-entrance 1.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        
+        @keyframes container-entrance {
+            0% {
+                opacity: 0;
+                transform: translateY(50px) scale(0.9);
+                filter: blur(10px);
+            }
+            50% {
+                filter: blur(5px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+                filter: blur(0);
+            }
         }
         
         .header {
             text-align: center;
-            margin-bottom: 30px;
+            margin-bottom: 35px;
+            position: relative;
+            opacity: 0;
+            animation: fade-in-down 0.8s ease-out 0.3s forwards;
+        }
+        
+        @keyframes fade-in-down {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
         
         .title {
             font-family: 'Bebas Neue', cursive;
-            font-size: 2.5em;
-            color: #deb887;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-            margin-bottom: 10px;
-            letter-spacing: 2px;
+            font-size: 2.8em;
+            background: linear-gradient(135deg, #deb887, #f4e4bc, #deb887);
+            background-size: 200% 200%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            margin-bottom: 15px;
+            letter-spacing: 3px;
+            animation: shimmer 3s ease-in-out infinite, glow 2s ease-in-out infinite alternate;
+            position: relative;
         }
         
-        .subtitle {
-            color: #deb887;
-            font-size: 1.1em;
-            opacity: 0.9;
-            font-weight: 400;
+        @keyframes shimmer {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        @keyframes glow {
+            from {
+                filter: drop-shadow(0 0 20px rgba(222, 184, 135, 0.3));
+            }
+            to {
+                filter: drop-shadow(0 0 30px rgba(244, 228, 188, 0.5));
+            }
         }
         
         .palm-decoration {
-            font-size: 2em;
+            font-size: 2.5em;
             color: #deb887;
-            margin: 10px 0;
-            opacity: 0.7;
+            margin: 15px 0;
+            opacity: 0;
+            display: inline-block;
+            animation: palm-entrance 1s ease-out 0.6s forwards;
+            filter: drop-shadow(0 5px 10px rgba(0, 0, 0, 0.3));
+        }
+        
+        @keyframes palm-entrance {
+            from {
+                opacity: 0;
+                transform: scale(0) rotate(-180deg);
+            }
+            to {
+                opacity: 0.8;
+                transform: scale(1) rotate(0deg);
+            }
+        }
+        
+        .palm-decoration.animated {
+            animation: palm-entrance 1s ease-out 0.6s forwards, sway 4s ease-in-out 1.6s infinite;
+        }
+        
+        @keyframes sway {
+            0%, 100% { transform: rotate(-5deg); }
+            50% { transform: rotate(5deg); }
+        }
+        
+        .subtitle {
+            color: #f4e4bc;
+            font-size: 1.05em;
+            opacity: 0;
+            font-weight: 300;
+            line-height: 1.4;
+            animation: fade-in 1s ease-out 0.8s forwards;
+        }
+        
+        @keyframes fade-in {
+            to { opacity: 0.9; }
         }
         
         .offers-grid {
             display: flex;
             flex-direction: column;
-            gap: 20px;
+            gap: 25px;
+            perspective: 1000px;
         }
         
         .offer-card {
-            background: rgba(222, 184, 135, 0.15);
-            border: 2px solid rgba(222, 184, 135, 0.3);
-            border-radius: 15px;
-            padding: 20px;
-            transition: all 0.3s ease;
+            background: linear-gradient(135deg, rgba(222, 184, 135, 0.12), rgba(244, 228, 188, 0.08));
+            border: 2px solid rgba(222, 184, 135, 0.25);
+            border-radius: 20px;
+            padding: 25px;
             position: relative;
             overflow: hidden;
             cursor: pointer;
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+            opacity: 0;
+            transform-style: preserve-3d;
+            -webkit-transform-style: preserve-3d;
+            transition: all 0.3s ease;
+            animation: card-entrance 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+            will-change: transform, opacity;
+            -webkit-tap-highlight-color: transparent;
+        }
+        
+        .offer-card:nth-child(1) { animation-delay: 0.9s; }
+        .offer-card:nth-child(2) { animation-delay: 1.1s; }
+        .offer-card:nth-child(3) { animation-delay: 1.3s; }
+        .offer-card:nth-child(4) { animation-delay: 1.5s; }
+        .offer-card:nth-child(5) { animation-delay: 1.7s; }
+        
+        @keyframes card-entrance {
+            from {
+                opacity: 0;
+                transform: translateX(-50px) rotateY(-10deg);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0) rotateY(0);
+            }
+        }
+        
+        .offer-card.tilt {
+            transition: transform 0.1s ease;
         }
         
         .offer-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 25px rgba(222, 184, 135, 0.2);
+            box-shadow: 
+                0 25px 50px rgba(222, 184, 135, 0.3),
+                0 10px 20px rgba(0, 0, 0, 0.2);
             border-color: #deb887;
+            background: linear-gradient(135deg, rgba(222, 184, 135, 0.18), rgba(244, 228, 188, 0.12));
         }
         
         .offer-card::before {
             content: '';
             position: absolute;
+            top: -100%;
+            left: -100%;
+            width: 300%;
+            height: 300%;
+            background: radial-gradient(circle, rgba(244, 228, 188, 0.2) 0%, transparent 70%);
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            pointer-events: none;
+        }
+        
+        .offer-card:hover::before {
+            opacity: 1;
+        }
+        
+        /* Holographic effect overlay */
+        .offer-card::after {
+            content: '';
+            position: absolute;
             top: 0;
             left: 0;
             right: 0;
-            height: 4px;
-            background: linear-gradient(90deg, #deb887, #f4e4bc);
+            bottom: 0;
+            background: linear-gradient(
+                45deg,
+                transparent 30%,
+                rgba(244, 228, 188, 0.1) 50%,
+                transparent 70%
+            );
+            transform: translateX(-100%);
+            transition: transform 0.6s;
+        }
+        
+        .offer-card:hover::after {
+            transform: translateX(100%);
         }
         
         .offer-header {
             display: flex;
             justify-content: space-between;
-            align-items: center;
-            margin-bottom: 12px;
+            align-items: flex-start;
+            margin-bottom: 15px;
+            position: relative;
+            z-index: 1;
+            gap: 15px;
+            flex-wrap: wrap;
         }
         
         .business-name {
             font-family: 'Bebas Neue', cursive;
             font-size: 1.8em;
             color: #deb887;
-            letter-spacing: 1px;
+            letter-spacing: 1.5px;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+            flex: 1;
+            min-width: 0;
+            line-height: 1.1;
+            word-wrap: break-word;
+            hyphens: auto;
+            -webkit-hyphens: auto;
+            -ms-hyphens: auto;
         }
         
-        .contact-info {
-            background: rgba(244, 228, 188, 0.1);
-            border: 1px solid rgba(222, 184, 135, 0.3);
-            border-radius: 8px;
-            padding: 10px;
-            margin-top: 10px;
-        }
-        
-        .contact-info p {
-            color: #deb887;
-            font-size: 0.85em;
-            margin: 0;
+        .offer-card:hover .business-name {
+            color: #f4e4bc;
+            transform: translateZ(20px);
+            text-shadow: 
+                1px 1px 2px rgba(0, 0, 0, 0.3),
+                0 0 20px rgba(244, 228, 188, 0.5);
         }
         
         .discount {
             background: linear-gradient(135deg, #deb887, #f4e4bc);
-            color: #4a5d23;
-            padding: 8px 15px;
-            border-radius: 25px;
-            font-weight: bold;
-            font-size: 1.1em;
-            box-shadow: 0 4px 15px rgba(222, 184, 135, 0.3);
+            color: #2a3415;
+            padding: 10px 18px;
+            border-radius: 30px;
+            font-weight: 700;
+            font-size: 1.15em;
+            box-shadow: 
+                0 5px 20px rgba(222, 184, 135, 0.4),
+                inset 0 1px 1px rgba(255, 255, 255, 0.5);
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            animation: pulse 2s ease-in-out infinite;
+            flex-shrink: 0;
+            white-space: nowrap;
+            align-self: flex-start;
+        }
+        
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+        }
+        
+        .offer-card:hover .discount {
+            transform: translateZ(30px) scale(1.1);
+            box-shadow: 
+                0 10px 30px rgba(222, 184, 135, 0.6),
+                inset 0 1px 1px rgba(255, 255, 255, 0.7);
+            animation: none;
         }
         
         .business-type {
             color: #deb887;
             font-size: 0.95em;
-            opacity: 0.8;
-            margin-bottom: 8px;
+            opacity: 0.9;
+            margin-bottom: 10px;
             font-style: italic;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            position: relative;
+            z-index: 1;
         }
         
         .business-description {
             color: #f4e4bc;
-            font-size: 0.9em;
-            line-height: 1.4;
+            font-size: 0.92em;
+            line-height: 1.5;
+            opacity: 0.85;
+            transition: opacity 0.3s ease;
+            position: relative;
+            z-index: 1;
         }
         
-        .special-note {
-            background: rgba(222, 184, 135, 0.1);
-            border-left: 4px solid #deb887;
+        .offer-card:hover .business-description {
+            opacity: 1;
+        }
+        
+        .contact-info {
+            background: rgba(244, 228, 188, 0.08);
+            border: 1px solid rgba(222, 184, 135, 0.25);
+            border-radius: 12px;
             padding: 12px;
-            margin-top: 15px;
-            border-radius: 0 8px 8px 0;
+            margin-top: 12px;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+            position: relative;
+            z-index: 1;
         }
         
-        .special-note p {
-            color: #deb887;
+        .contact-info p {
+            color: #f4e4bc;
             font-size: 0.85em;
             margin: 0;
         }
         
+        .offer-card:hover .contact-info {
+            background: rgba(244, 228, 188, 0.12);
+            border-color: rgba(222, 184, 135, 0.4);
+        }
+        
+        .special-note {
+            background: linear-gradient(135deg, rgba(222, 184, 135, 0.08), rgba(244, 228, 188, 0.05));
+            border-left: 4px solid #deb887;
+            padding: 14px;
+            margin-top: 16px;
+            border-radius: 0 12px 12px 0;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            z-index: 1;
+        }
+        
+        .special-note::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 4px;
+            background: linear-gradient(180deg, #deb887, #f4e4bc, #deb887);
+            background-size: 100% 200%;
+            animation: slideVertical 3s linear infinite;
+        }
+        
+        @keyframes slideVertical {
+            0% { background-position: 0 0; }
+            100% { background-position: 0 200%; }
+        }
+        
+        .offer-card:hover .special-note {
+            background: linear-gradient(135deg, rgba(222, 184, 135, 0.12), rgba(244, 228, 188, 0.08));
+            transform: translateX(5px);
+        }
+        
+        .special-note p {
+            color: #f4e4bc;
+            font-size: 0.86em;
+            margin: 0;
+            font-weight: 300;
+        }
+        
         .footer {
             text-align: center;
-            margin-top: 30px;
-            padding-top: 20px;
+            margin-top: 35px;
+            padding-top: 25px;
             border-top: 1px solid rgba(222, 184, 135, 0.2);
+            position: relative;
+            opacity: 0;
+            animation: fade-in 1s ease-out 2s forwards;
+        }
+        
+        .footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 50px;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, #deb887, transparent);
         }
         
         .footer-text {
-            color: #deb887;
-            font-size: 0.9em;
-            opacity: 0.8;
+            color: #f4e4bc;
+            font-size: 0.88em;
+            opacity: 0.85;
+            line-height: 1.5;
+            font-weight: 300;
         }
         
         .palm-icon {
             display: inline-block;
-            margin: 0 10px;
-            font-size: 1.2em;
+            margin: 0 12px;
+            font-size: 1.3em;
+            filter: drop-shadow(0 3px 5px rgba(0, 0, 0, 0.3));
+            animation: sway 4s ease-in-out infinite;
+        }
+        
+        .palm-icon:nth-child(2) {
+            animation-delay: -2s;
+        }
+        
+        /* Loading overlay */
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #4a5d23 0%, #5c6e2a 50%, #4a5d23 100%);
+            z-index: 9998;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: fade-out 0.5s ease-out 2.5s forwards;
+            pointer-events: none;
+        }
+        
+        @keyframes fade-out {
+            to {
+                opacity: 0;
+                visibility: hidden;
+            }
+        }
+        
+        .loading-text {
+            font-family: 'Bebas Neue', cursive;
+            font-size: 3em;
+            color: #deb887;
+            letter-spacing: 5px;
+            opacity: 0;
+            animation: loading-pulse 2s ease-in-out;
+        }
+        
+        @keyframes loading-pulse {
+            0% {
+                opacity: 0;
+                transform: scale(0.8);
+            }
+            50% {
+                opacity: 1;
+                transform: scale(1);
+            }
+            100% {
+                opacity: 0;
+                transform: scale(0.8);
+            }
         }
         
         @media (max-width: 480px) {
+            /* Container adjustments */
             .container {
                 padding: 20px;
                 margin: 10px;
+                border-radius: 20px;
+                backdrop-filter: blur(10px);
+                -webkit-backdrop-filter: blur(10px);
+                max-width: calc(100vw - 20px);
             }
             
+            /* Title adjustments */
             .title {
+                font-size: 2em;
+                animation-duration: 4s;
+            }
+            
+            /* Business name adjustments for mobile */
+            .business-name {
+                font-size: 1.5em;
+                letter-spacing: 1px;
+                line-height: 1.2;
+                word-break: break-word;
+                overflow-wrap: break-word;
+            }
+            
+            /* Header adjustments for mobile */
+            .offer-header {
+                flex-direction: row;
+                align-items: flex-start;
+                gap: 10px;
+                text-align: left;
+            }
+            
+            /* Discount adjustments for mobile */
+            .discount {
+                font-size: 0.95em;
+                padding: 6px 12px;
+                animation: none;
+                align-self: flex-start;
+                flex-shrink: 0;
+                min-width: fit-content;
+            }
+            
+            /* Palm icon */
+            .palm-decoration {
                 font-size: 2em;
             }
             
-            .business-name {
-                font-size: 1.5em;
+            /* Mobile performance optimizations */
+            .blob {
+                filter: blur(30px);
+                animation-duration: 40s;
             }
             
-            .offer-header {
-                flex-direction: column;
-                gap: 10px;
-                text-align: center;
+            .blob:nth-child(1) {
+                width: 300px;
+                height: 300px;
+            }
+            
+            .blob:nth-child(2) {
+                width: 250px;
+                height: 250px;
+            }
+            
+            .blob:nth-child(3) {
+                width: 200px;
+                height: 200px;
+            }
+            
+            /* Simplify card animations on mobile */
+            .offer-card {
+                animation: simple-card-entrance 0.5s ease-out forwards;
+                backdrop-filter: blur(3px);
+                -webkit-backdrop-filter: blur(3px);
+            }
+            
+            @keyframes simple-card-entrance {
+                from {
+                    opacity: 0;
+                    transform: translateY(20px);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+            
+            /* Disable complex hover effects on mobile */
+            .offer-card:hover {
+                transform: none;
+            }
+            
+            .offer-card:active {
+                transform: scale(0.98);
+            }
+            
+            /* Remove heavy pseudo-elements on mobile */
+            .offer-card::before,
+            .offer-card::after {
+                display: none;
+            }
+            
+            /* Simplify animations */
+            .palm-decoration.animated {
+                animation: palm-entrance 0.5s ease-out forwards, simple-sway 4s ease-in-out 1s infinite;
+            }
+            
+            @keyframes simple-sway {
+                0%, 100% { transform: rotate(-3deg); }
+                50% { transform: rotate(3deg); }
+            }
+            
+            /* Faster loading screen */
+            .loading-overlay {
+                animation: fade-out 0.3s ease-out 1s forwards;
+            }
+            
+            /* Font size adjustments */
+            .subtitle {
+                font-size: 0.95em;
+            }
+            
+            .business-type {
+                font-size: 0.9em;
+            }
+            
+            .business-description {
+                font-size: 0.85em;
+            }
+        }
+        
+        /* Additional mobile optimizations for very small screens */
+        @media (max-width: 360px) {
+            .business-name {
+                font-size: 1.3em;
+            }
+            
+            .discount {
+                font-size: 0.9em;
+                padding: 6px 12px;
+            }
+        }
+        
+        /* Touch device optimizations */
+        @media (hover: none) {
+            .offer-card {
+                -webkit-tap-highlight-color: transparent;
+            }
+            
+            .offer-card:hover .business-name {
+                transform: none;
+            }
+            
+            .offer-card:hover .discount {
+                transform: none;
+                animation: none;
             }
         }
     </style>
 </head>
 <body>
+    <!-- Loading Overlay -->
+    <div class="loading-overlay">
+        <div class="loading-text">VELL'S CRIB</div>
+    </div>
+    
+    <!-- Liquid Morphing Background -->
+    <div class="liquid-bg">
+        <div class="blob"></div>
+        <div class="blob"></div>
+        <div class="blob"></div>
+    </div>
+    
     <div class="container">
         <div class="header">
             <h1 class="title">EXCLUSIVE GUEST OFFERS</h1>
-            <div class="palm-decoration">🌴</div>
+            <div class="palm-decoration animated">🌴</div>
             <p class="subtitle">Enjoy Exclusive Guest offers during your stay in Boho Escape | Jacuzzi & Sea View from our beloved partners</p>
         </div>
         
@@ -216,7 +756,7 @@
                 <p class="business-type">☕ Coffee Shop</p>
                 <p class="business-description">Start your day with premium coffee, fresh pastries, and a cozy atmosphere. Perfect for breakfast or afternoon coffee breaks.</p>
                 <div class="contact-info">
-                    <p>📞 <strong>Phone Number:</strong> 2229063783</p>
+                    <p>📞 <strong>Phone Number:</strong> +30 2229 063783</p>
                 </div>
                 <div class="special-note">
                     <p>🚚 <strong>Delivery Available!</strong> Enjoy these offers from the comfort of your accommodation. Delivery from 10 euros and more.</p>
@@ -281,5 +821,104 @@
             </p>
         </div>
     </div>
+    
+    <script>
+        // Mobile detection
+        const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || window.innerWidth <= 768;
+        
+        // 3D Tilt Effect (desktop only)
+        const cards = document.querySelectorAll('.offer-card');
+        
+        if (!isMobile) {
+            cards.forEach(card => {
+                card.addEventListener('mousemove', (e) => {
+                    const rect = card.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+                    
+                    const centerX = rect.width / 2;
+                    const centerY = rect.height / 2;
+                    
+                    const rotateX = (y - centerY) / 10;
+                    const rotateY = (centerX - x) / 10;
+                    
+                    card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateZ(10px)`;
+                    card.classList.add('tilt');
+                    
+                    // Move the glow effect
+                    const glowX = (x / rect.width) * 100;
+                    const glowY = (y / rect.height) * 100;
+                    card.style.setProperty('--glow-x', `${glowX}%`);
+                    card.style.setProperty('--glow-y', `${glowY}%`);
+                });
+                
+                card.addEventListener('mouseleave', () => {
+                    card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) translateZ(0)';
+                    card.classList.remove('tilt');
+                });
+            });
+            
+            // Parallax effect for blobs (desktop only)
+            let ticking = false;
+            function updateParallax(e) {
+                if (!ticking) {
+                    window.requestAnimationFrame(() => {
+                        const blobs = document.querySelectorAll('.blob');
+                        const x = e.clientX / window.innerWidth;
+                        const y = e.clientY / window.innerHeight;
+                        
+                        blobs.forEach((blob, index) => {
+                            const speed = (index + 1) * 20;
+                            blob.style.transform = `translate(${x * speed}px, ${y * speed}px) translateZ(0)`;
+                        });
+                        ticking = false;
+                    });
+                    ticking = true;
+                }
+            }
+            
+            document.addEventListener('mousemove', updateParallax, { passive: true });
+        } else {
+            // Mobile optimizations
+            // Add mobile class to body
+            document.body.classList.add('mobile-device');
+            
+            // Touch feedback for cards
+            cards.forEach(card => {
+                card.addEventListener('touchstart', (e) => {
+                    e.currentTarget.style.transform = 'scale(0.98)';
+                }, { passive: true });
+                
+                card.addEventListener('touchend', (e) => {
+                    e.currentTarget.style.transform = 'scale(1)';
+                }, { passive: true });
+            });
+            
+            // Disable parallax on mobile
+            const blobs = document.querySelectorAll('.blob');
+            blobs.forEach(blob => {
+                blob.style.transform = 'translateZ(0)';
+            });
+        }
+        
+        // Optimize scroll performance on mobile
+        if (isMobile) {
+            let scrolling = false;
+            let scrollTimeout;
+            
+            window.addEventListener('scroll', () => {
+                if (!scrolling) {
+                    scrolling = true;
+                    document.body.classList.add('scrolling');
+                }
+                
+                clearTimeout(scrollTimeout);
+                scrollTimeout = setTimeout(() => {
+                    scrolling = false;
+                    document.body.classList.remove('scrolling');
+                }, 150);
+            }, { passive: true });
+        }
+    </script>
 </body>
 </html>
