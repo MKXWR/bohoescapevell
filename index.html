@@ -252,6 +252,7 @@
         .offer-card:nth-child(3) { animation-delay: 1.3s; }
         .offer-card:nth-child(4) { animation-delay: 1.5s; }
         .offer-card:nth-child(5) { animation-delay: 1.7s; }
+        .offer-card:nth-child(6) { animation-delay: 1.9s; }
         
         @keyframes card-entrance {
             from {
@@ -323,7 +324,6 @@
             position: relative;
             z-index: 1;
             gap: 15px;
-            flex-wrap: wrap;
         }
         
         .business-name {
@@ -334,12 +334,10 @@
             text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
             transition: all 0.3s ease;
             flex: 1;
-            min-width: 0;
             line-height: 1.1;
-            word-wrap: break-word;
-            hyphens: auto;
-            -webkit-hyphens: auto;
-            -ms-hyphens: auto;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
         
         .offer-card:hover .business-name {
@@ -366,7 +364,6 @@
             animation: pulse 2s ease-in-out infinite;
             flex-shrink: 0;
             white-space: nowrap;
-            align-self: flex-start;
         }
         
         @keyframes pulse {
@@ -582,19 +579,25 @@
                 animation-duration: 4s;
             }
             
-            /* Business name adjustments for mobile */
+            /* Business name adjustments for mobile - FIXED */
             .business-name {
-                font-size: 1.5em;
-                letter-spacing: 1px;
-                line-height: 1.2;
-                word-break: break-word;
-                overflow-wrap: break-word;
+                font-size: 1.2em;
+                letter-spacing: 0.5px;
+                line-height: 1.1;
+                white-space: normal;
+                overflow: visible;
+                text-overflow: clip;
+                hyphens: none;
+                -webkit-hyphens: none;
+                -ms-hyphens: none;
+                word-break: keep-all;
+                overflow-wrap: normal;
             }
             
-            /* Header adjustments for mobile */
+            /* Header adjustments for mobile - IMPROVED */
             .offer-header {
-                flex-direction: row;
-                align-items: flex-start;
+                flex-direction: column;
+                align-items: stretch;
                 gap: 10px;
                 text-align: left;
             }
@@ -602,11 +605,10 @@
             /* Discount adjustments for mobile */
             .discount {
                 font-size: 0.95em;
-                padding: 6px 12px;
+                padding: 8px 16px;
                 animation: none;
                 align-self: flex-start;
-                flex-shrink: 0;
-                min-width: fit-content;
+                display: inline-block;
             }
             
             /* Palm icon */
@@ -700,12 +702,22 @@
         /* Additional mobile optimizations for very small screens */
         @media (max-width: 360px) {
             .business-name {
-                font-size: 1.3em;
+                font-size: 1.1em;
+                letter-spacing: 0;
             }
             
             .discount {
-                font-size: 0.9em;
+                font-size: 0.85em;
                 padding: 6px 12px;
+            }
+            
+            .container {
+                padding: 15px;
+            }
+            
+            .title {
+                font-size: 1.8em;
+                letter-spacing: 2px;
             }
         }
         
@@ -810,6 +822,16 @@
                 <div class="special-note">
                     <p>📞 <strong>Booking Required:</strong> Contact directly to arrange your boat rental experience.</p>
                 </div>
+            </div>
+            
+            <!-- LYKOS APOSTOLOS -->
+            <div class="offer-card" onclick="window.open('https://maps.app.goo.gl/rmWr9ndoTXDFpY5V7', '_blank')">
+                <div class="offer-header">
+                    <h2 class="business-name">LYKOS APOSTOLOS</h2>
+                    <span class="discount">10% OFF</span>
+                </div>
+                <p class="business-type">🍽️ Local Restaurant</p>
+                <p class="business-description">Experience authentic local cuisine and warm hospitality. A favorite spot among locals and visitors alike.</p>
             </div>
         </div>
         
